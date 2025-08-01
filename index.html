@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>File Tools Suite</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: #f4f7ff;
+      color: #333;
+    }
+    header {
+      background: #1f2f98;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .tool-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .tool-card:hover {
+      transform: scale(1.05);
+    }
+    .tool-card i {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #1f2f98;
+    }
+    .tool-card h3 {
+      margin-bottom: 0.5rem;
+    }
+    .tool-card input, .tool-card button {
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .tool-card button {
+      background: #1f2f98;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+    }
+    footer {
+      background: #1f2f98;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🛠️ All-in-One File Tools</h1>
+  <p>Convert, Compress, Edit & More!</p>
+</header>
+
+<main class="container">
+  <!-- Image to PDF -->
+  <div class="tool-card">
+    <i class="fas fa-file-pdf"></i>
+    <h3>Image to PDF</h3>
+    <input type="file" id="imgToPdfInput" accept="image/*" multiple>
+    <button onclick="convertToPDF()">Convert</button>
+  </div>
+
+  <!-- PDF Editor -->
+  <div class="tool-card">
+    <i class="fas fa-edit"></i>
+    <h3>Edit PDF (Coming Soon)</h3>
+    <p>Basic editing features under development.</p>
+  </div>
+
+  <!-- ZIP File Creator -->
+  <div class="tool-card">
+    <i class="fas fa-file-archive"></i>
+    <h3>ZIP File Creator</h3>
+    <input type="file" id="zipInput" multiple>
+    <button onclick="createZip()">Create ZIP</button>
+  </div>
+
+  <!-- JPG Compressor -->
+  <div class="tool-card">
+    <i class="fas fa-compress"></i>
+    <h3>JPG Image Compressor</h3>
+    <input type="file" id="compressInput" accept="image/jpeg">
+    <button onclick="compressJPG()">Compress</button>
+  </div>
+</main>
+
+<footer>
+  &copy; 2025 FileTools WebApp | Built with ❤️
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+
+<script>
+  // Image to PDF
+  async function convertToPDF() {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
+    const files = document.getElementById('imgToPdfInput').files;
+
+    if (!files.length) {
+      alert("Please select image(s).");
+      return;
+    }
+
+    for (let i = 0; i < files.length; i++) {
+      const imgData = await toBase64(files[i]);
+      if (i > 0) pdf.addPage();
+      pdf.addImage(imgData, 'JPEG', 10, 10, 180, 160);
+    }
+
+    pdf.save("converted.pdf");
+  }
+
+  function toBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Create ZIP
+  async function createZip() {
+    const zip = new JSZip();
+    const files = document.getElementById("zipInput").files;
+    if (!files.length) {
+      alert("Please select files to zip.");
+      return;
+    }
+
+    for (let file of files) {
+      zip.file(file.name, file);
+    }
+
+    const content = await zip.generateAsync({ type: "blob" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(content);
+    link.download = "myfiles.zip";
+    link.click();
+  }
+
+  // JPG Compressor
+  function compressJPG() {
+    const input = document.getElementById('compressInput').files[0];
+    if (!input) return alert("Please select a JPG image.");
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+
+        const compressedData = canvas.toDataURL("image/jpeg", 0.4); // 40% quality
+        const link = document.createElement("a");
+        link.href = compressedData;
+        link.download = "compressed.jpg";
+        link.click();
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(input);
+  }
+</script>
+
+</body>
+</html>
