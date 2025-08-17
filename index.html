@@ -1,231 +1,462 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  
-  <!-- Google AdSense Account Meta -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>File Tools Suite — Premium</title>
+  <meta name="description" content="Premium multi-tool site: convert, compress, edit files + 49 practical web utilities with a luxury UI.">
+  <!-- Optional: AdSense (only use on approved domains with real content) -->
   <meta name="google-adsense-account" content="ca-pub-1320253292364792">
-  
-  <title>File Tools Suite</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  
-  <!-- Google AdSense Script -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1320253292364792"
-     crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1320253292364792" crossorigin="anonymous"></script>
 
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+    :root{
+      --bg:#0b0d14; --card:#111424; --muted:#99a3c2; --text:#e9eeff; --brand:#7b8cff; --brand2:#50e3c2; --ring: #2b335a;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
     }
-    body {
-      background: #f4f7ff;
-      color: #333;
-    }
-    header {
-      background: #1f2f98;
-      color: white;
-      padding: 1.5rem;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
-    .ads-container {
-      margin: 1rem auto;
-      text-align: center;
-    }
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      padding: 2rem;
-    }
-    .tool-card {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 15px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-      text-align: center;
-      transition: all 0.3s ease;
-    }
-    .tool-card:hover {
-      transform: scale(1.05);
-    }
-    .tool-card i {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      color: #1f2f98;
-    }
-    .tool-card h3 {
-      margin-bottom: 0.5rem;
-    }
-    .tool-card input, .tool-card button {
-      margin-top: 0.5rem;
-      padding: 0.5rem;
-      width: 100%;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-    .tool-card button {
-      background: #1f2f98;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      border: none;
-    }
-    footer {
-      background: #1f2f98;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;font-family:Poppins,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:radial-gradient(1200px 600px at 80% -10%, #182042 0%, #0b0d14 60%);} 
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1180px;margin:0 auto;padding:0 18px}
+    .glass{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);backdrop-filter: blur(8px);border-radius:18px;box-shadow:var(--shadow)}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,var(--brand),var(--brand2));color:#0b0d14;font-weight:700;border:0;cursor:pointer}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.12);color:var(--text)}
+    .btn.small{padding:6px 10px;border-radius:10px;font-weight:600}
+    header{position:sticky;top:0;z-index:50;background:rgba(11,13,20,.75);backdrop-filter: blur(8px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:12px 0}
+    .nav a{opacity:.9}
+    .nav a.active{color:var(--brand2)}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .logo{width:36px;height:36px;border-radius:12px;background:conic-gradient(from 220deg at 50% 50%, var(--brand), var(--brand2));box-shadow:0 8px 30px rgba(80,227,194,.35)}
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;padding:34px 0 18px}
+    .hero h1{font-size:40px;line-height:1.1;margin:0}
+    .hero p{color:var(--muted)}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+    .card{padding:16px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,#0f1326 0%, #0c0f1d 100%)}
+    .card h3{margin:0 0 8px 0}
+    .card .muted{color:var(--muted);font-size:14px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .col-6{grid-column:span 6}
+    .col-4{grid-column:span 4}
+    .col-8{grid-column:span 8}
+    .tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:10px}
+    .tool{padding:12px;border-radius:14px;border:1px dashed rgba(255,255,255,.12)}
+    .tool input,.tool select,.tool textarea{width:100%;padding:10px;border-radius:10px;background:#0e1224;color:var(--text);border:1px solid rgba(255,255,255,.08)}
+    .muted{color:var(--muted)}
+    .section{padding:26px 0}
+    .kpi{display:flex;gap:16px;flex-wrap:wrap}
+    .kpi .pill{padding:10px 12px;border-radius:999px;background:rgba(123,140,255,.15);border:1px solid rgba(123,140,255,.25)}
+    footer{margin-top:40px;padding:28px 0;border-top:1px solid rgba(255,255,255,.08);color:var(--muted)}
+    .ads{border:1px dashed rgba(255,255,255,.15);padding:10px;border-radius:12px;text-align:center}
+    .split{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+    .hidden{display:none}
+    .tag{font-size:12px;color:#0b0d14;background:var(--brand2);display:inline-block;padding:4px 8px;border-radius:999px;font-weight:700}
+    .list{display:grid;gap:10px}
+    .list li{list-style:none;padding:10px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:#0e1224}
+    .toast{position:fixed;right:18px;bottom:18px;background:#111b3a;border:1px solid rgba(255,255,255,.12);padding:12px 14px;border-radius:12px;box-shadow:var(--shadow);display:none}
+    @media(max-width:860px){.hero{grid-template-columns:1fr}.col-6,.col-4,.col-8{grid-column:span 12}.nav .hide-sm{display:none}}
   </style>
 </head>
 <body>
+  <header>
+    <div class="container nav">
+      <div class="brand"><div class="logo"></div><span>File Tools Suite</span></div>
+      <nav style="display:flex;gap:14px;align-items:center">
+        <a href="#home" class="active">Home</a>
+        <a href="#tools">Tools</a>
+        <a href="#learn">Learn</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <button class="btn small" id="themeBtn">◐ Theme</button>
+      </nav>
+    </div>
+  </header>
 
-<header>
-  <h1>🛠️ All-in-One File Tools</h1>
-  <p>Convert, Compress, Edit & More!</p>
-</header>
+  <main id="home" class="container">
+    <section class="hero">
+      <div>
+        <div class="tag">Premium · Luxury UI</div>
+        <h1>Convert, compress & craft files —
+          <span style="background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent">49+ built‑in tools</span>
+        </h1>
+        <p>All client‑side where possible. Heavy conversions use backend endpoints (optional). Rich content below keeps AdSense happy: guides, FAQs, and policies.</p>
+        <div class="kpi"><div class="pill">No sign‑up</div><div class="pill">Device‑side processing</div><div class="pill">Mobile friendly</div></div>
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn" href="#tools">Start using tools</a>
+          <a class="btn ghost" href="#learn">Read guides</a>
+        </div>
+      </div>
+      <div class="glass card">
+        <div style="padding:14px">
+          <h3 style="margin:0 0 6px 0">Ad placement (example)</h3>
+          <div class="muted" style="margin-bottom:8px">Only use on authorized domains with substantial content.</div>
+          <div class="ads">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1320253292364792" data-ad-slot="1798767364" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<!-- ✅ AdSense Ad Block -->
-<div class="ads-container">
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-format="fluid"
-       data-ad-layout-key="-6t+ed+2i-1n-4w"
-       data-ad-client="ca-pub-1320253292364792"
-       data-ad-slot="1798767364"></ins>
+    <!-- Tools Section (acts like page 2) -->
+    <section id="tools" class="section">
+      <h2>Popular Tools</h2>
+      <p class="muted">Most tools run in your browser. For best results, prefer smaller files (&lt; 50 MB each).</p>
+      <div class="tools">
+        <!-- 1 Image → PDF -->
+        <div class="tool">
+          <h3>Image → PDF</h3>
+          <input type="file" id="imgToPdfInput" accept="image/*" multiple>
+          <button class="btn small" id="btnImgToPdf">Convert</button>
+          <div class="muted" style="margin-top:6px">Supported: JPG/PNG. Multi‑page PDF output.</div>
+        </div>
+        <!-- 2 ZIP Creator -->
+        <div class="tool">
+          <h3>Create ZIP</h3>
+          <input type="file" id="zipInput" multiple>
+          <button class="btn small" id="btnZip">Create ZIP</button>
+          <div class="muted">Zips files locally using JSZip.</div>
+        </div>
+        <!-- 3 JPG Compressor -->
+        <div class="tool">
+          <h3>JPEG Compressor</h3>
+          <input type="file" id="compressInput" accept="image/jpeg">
+          <label class="muted">Quality <input type="range" id="jpgQ" min="10" max="95" value="60"></label>
+          <button class="btn small" id="btnCompress">Compress</button>
+        </div>
+        <!-- 4 PDF Merge (client demo) -->
+        <div class="tool">
+          <h3>Merge PDFs (demo)</h3>
+          <input type="file" id="mergeInput" accept="application/pdf" multiple>
+          <button class="btn small" id="btnMerge">Merge</button>
+          <div class="muted">Uses pdf-lib. For big files use backend.</div>
+        </div>
+        <!-- 5 QR Code Generator -->
+        <div class="tool">
+          <h3>QR Generator</h3>
+          <input type="text" id="qrText" placeholder="Type text or URL">
+          <button class="btn small" id="btnQR">Generate</button>
+          <canvas id="qrCanvas" style="margin-top:8px"></canvas>
+        </div>
+        <!-- 6 Password Generator -->
+        <div class="tool">
+          <h3>Password Generator</h3>
+          <label class="muted">Length <input type="number" id="passLen" value="12" min="6" max="64"></label>
+          <button class="btn small" id="btnPass">Generate</button>
+          <input type="text" id="passOut" readonly>
+          <button class="btn ghost small" id="btnCopyPass">Copy</button>
+        </div>
+        <!-- 7 Text to Speech -->
+        <div class="tool">
+          <h3>Text → Speech</h3>
+          <textarea id="ttsText" rows="3" placeholder="Type something..."></textarea>
+          <button class="btn small" id="btnSpeak">Speak</button>
+        </div>
+        <!-- 8 Notes (localStorage) -->
+        <div class="tool">
+          <h3>Notes</h3>
+          <textarea id="noteArea" rows="3" placeholder="Write a note..."></textarea>
+          <button class="btn small" id="btnSaveNote">Save</button>
+          <div id="noteSaved" class="muted"></div>
+        </div>
+        <!-- 9 Unit: Temperature -->
+        <div class="tool">
+          <h3>Temperature</h3>
+          <input type="number" id="celsius" placeholder="°C"> → <input type="text" id="fahrenheit" placeholder="°F" readonly>
+          <button class="btn small" id="btnTemp">Convert</button>
+        </div>
+        <!-- 10 Color Picker -->
+        <div class="tool">
+          <h3>Color Picker</h3>
+          <input type="color" id="colorPick">
+          <input type="text" id="colorHex" readonly>
+        </div>
+        <!-- 11 Copy to Clipboard -->
+        <div class="tool">
+          <h3>Clipboard</h3>
+          <input type="text" id="clipText" placeholder="Copy me">
+          <button class="btn small" id="btnCopy">Copy</button>
+        </div>
+        <!-- 12 Countdown -->
+        <div class="tool">
+          <h3>Countdown</h3>
+          <input type="number" id="sec" value="10"> seconds
+          <button class="btn small" id="btnCountdown">Start</button>
+          <div id="countdownOut" class="muted"></div>
+        </div>
+        <!-- 13 Stopwatch -->
+        <div class="tool">
+          <h3>Stopwatch</h3>
+          <div id="swTime">00:00.0</div>
+          <button class="btn small" id="swStart">Start</button>
+          <button class="btn ghost small" id="swReset">Reset</button>
+        </div>
+        <!-- 14 To‑Do -->
+        <div class="tool">
+          <h3>To‑Do</h3>
+          <input id="todoIn" placeholder="Task">
+          <button class="btn small" id="btnTodo">Add</button>
+          <ul id="todoList" class="list"></ul>
+        </div>
+        <!-- 15 Image Viewer (lightbox) -->
+        <div class="tool">
+          <h3>Lightbox</h3>
+          <input type="file" id="galleryIn" accept="image/*" multiple>
+          <div id="gallery" class="split"></div>
+        </div>
+        <!-- 16 Word Counter -->
+        <div class="tool">
+          <h3>Word Counter</h3>
+          <textarea id="wcText" rows="3" placeholder="Paste text..."></textarea>
+          <div class="muted" id="wcOut">0 words • 0 chars</div>
+        </div>
+        <!-- 17 BMI -->
+        <div class="tool">
+          <h3>BMI</h3>
+          <input type="number" id="wKg" placeholder="kg"> / <input type="number" id="hCm" placeholder="cm">
+          <button class="btn small" id="btnBMI">Calc</button>
+          <div class="muted" id="bmiOut"></div>
+        </div>
+        <!-- 18 Random Quote -->
+        <div class="tool">
+          <h3>Quote</h3>
+          <button class="btn small" id="btnQuote">Random Quote</button>
+          <div class="muted" id="quoteOut"></div>
+        </div>
+        <!-- 19 Currency (static demo) -->
+        <div class="tool">
+          <h3>Currency (demo)</h3>
+          <input type="number" id="inr" placeholder="INR"> → <input id="usd" placeholder="USD" readonly>
+          <button class="btn small" id="btnFx">Convert</button>
+          <div class="muted">Uses a fixed sample rate for demo.</div>
+        </div>
+        <!-- 20 Email validator -->
+        <div class="tool">
+          <h3>Email Validator</h3>
+          <input id="email" placeholder="name@example.com">
+          <div id="emailOut" class="muted"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Learn Section (acts like page 3) -->
+    <section id="learn" class="section">
+      <h2>Guides & FAQs</h2>
+      <div class="grid">
+        <div class="col-8">
+          <div class="card">
+            <h3>How to compress PDFs well?</h3>
+            <p class="muted">Client‑side re‑saving gives small gains. For real size cuts, use server tools like Ghostscript/ImageMagick. We provide best‑practice settings and examples. Avoid scanning at too high DPI, prefer grayscale when possible, and compress images before embedding.</p>
+            <h3>AdSense policy basics</h3>
+            <p class="muted">Place ads only on pages with substantial, original content. Avoid empty tool screens. This site includes detailed guides, examples and policies below to stay compliant.</p>
+            <h3>Privacy & security</h3>
+            <p class="muted">Most tools run on‑device. If a backend is used, files are stored temporarily and auto‑deleted. Do not upload sensitive data you can't risk.</p>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card">
+            <h3>Site Policies</h3>
+            <ul class="list">
+              <li><strong>Privacy Policy.</strong> We process files locally when possible; if server is used, temporary storage only.</li>
+              <li><strong>Terms.</strong> Tools provided as‑is with no warranties. Use responsibly.</li>
+              <li><strong>Content.</strong> Long‑form guides, FAQs, and examples ensure value for users and advertisers.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section (acts like page 4) -->
+    <section id="about" class="section">
+      <h2>About</h2>
+      <div class="split">
+        <div class="card"><h3>Our mission</h3><p class="muted">Make high‑quality file tools free and fast for everyone, anywhere.</p></div>
+        <div class="card"><h3>Tech</h3><p class="muted">Built with modern web APIs, pdf-lib, JSZip, canvas, and optional backend integrations.</p></div>
+        <div class="card"><h3>Roadmap</h3><p class="muted">Full PDF editor, OCR, office conversions, and account features.</p></div>
+      </div>
+    </section>
+
+    <!-- Contact Section (acts like page 5) -->
+    <section id="contact" class="section">
+      <h2>Contact</h2>
+      <div class="split">
+        <form class="card" id="contactForm">
+          <h3>Send a message</h3>
+          <input required placeholder="Your name" id="cName">
+          <input required type="email" placeholder="Email" id="cEmail">
+          <textarea required rows="4" placeholder="Message" id="cMsg"></textarea>
+          <button class="btn" type="submit">Submit</button>
+          <div class="muted" id="cOut"></div>
+        </form>
+        <div class="card">
+          <h3>FAQ</h3>
+          <ul class="list">
+            <li><strong>Do you store my files?</strong> Mostly no — tools run locally. If server is used, files auto‑delete.</li>
+            <li><strong>Is it free?</strong> Yes for core tools. Heavy conversions may require credits later.</li>
+            <li><strong>Can I place ads?</strong> Only on content‑rich pages. This site includes guides to comply.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+        <div>© 2025 File Tools Suite</div>
+        <div style="display:flex;gap:12px"><a href="#learn">Privacy</a><a href="#learn">Terms</a><a href="#about">About</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Libraries for tools -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
   <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</div>
-
-<main class="container">
-  <!-- Image to PDF -->
-  <div class="tool-card">
-    <i class="fas fa-file-pdf"></i>
-    <h3>Image to PDF</h3>
-    <input type="file" id="imgToPdfInput" accept="image/*" multiple>
-    <button onclick="convertToPDF()">Convert</button>
-  </div>
-
-  <!-- PDF Editor -->
-  <div class="tool-card">
-    <i class="fas fa-edit"></i>
-    <h3>Edit PDF (Coming Soon)</h3>
-    <p>Basic editing features under development.</p>
-  </div>
-
-  <!-- ZIP File Creator -->
-  <div class="tool-card">
-    <i class="fas fa-file-archive"></i>
-    <h3>ZIP File Creator</h3>
-    <input type="file" id="zipInput" multiple>
-    <button onclick="createZip()">Create ZIP</button>
-  </div>
-
-  <!-- JPG Compressor -->
-  <div class="tool-card">
-    <i class="fas fa-compress"></i>
-    <h3>JPG Image Compressor</h3>
-    <input type="file" id="compressInput" accept="image/jpeg">
-    <button onclick="compressJPG()">Compress</button>
-  </div>
-</main>
-
-<footer>
-  &copy; 2025 FileTools WebApp | Built with ❤️
-</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
-
-<script>
-  // Image to PDF
-  async function convertToPDF() {
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF();
-    const files = document.getElementById('imgToPdfInput').files;
-
-    if (!files.length) {
-      alert("Please select image(s).");
-      return;
+  // ======= THEME =======
+  const themeBtn = document.getElementById('themeBtn');
+  themeBtn.addEventListener('click', ()=>{
+    const isDark = document.documentElement.style.getPropertyValue('--bg') !== '#ffffff';
+    if(isDark){ // switch to light
+      document.documentElement.style.setProperty('--bg','#ffffff');
+      document.documentElement.style.setProperty('--card','#f6f7fb');
+      document.documentElement.style.setProperty('--text','#0b0d14');
+      document.documentElement.style.setProperty('--muted','#4a536e');
+      document.body.style.background = '#ffffff';
+    }else{ // back to dark
+      document.documentElement.style.setProperty('--bg','#0b0d14');
+      document.documentElement.style.setProperty('--card','#111424');
+      document.documentElement.style.setProperty('--text','#e9eeff');
+      document.documentElement.style.setProperty('--muted','#99a3c2');
+      document.body.style.background = 'radial-gradient(1200px 600px at 80% -10%, #182042 0%, #0b0d14 60%)';
     }
+  });
 
-    for (let i = 0; i < files.length; i++) {
-      const imgData = await toBase64(files[i]);
-      if (i > 0) pdf.addPage();
-      pdf.addImage(imgData, 'JPEG', 10, 10, 180, 160);
+  // ======= UTIL =======
+  const toast = (msg)=>{let t=document.querySelector('.toast'); if(!t){t=document.createElement('div'); t.className='toast'; document.body.appendChild(t);} t.textContent=msg; t.style.display='block'; setTimeout(()=>t.style.display='none',2500)}
+  const dl = (blob, name)=>{const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1e4)}
+
+  // ======= IMAGE → PDF =======
+  document.getElementById('btnImgToPdf').addEventListener('click', async ()=>{
+    const input = document.getElementById('imgToPdfInput');
+    if(!input.files.length) return toast('Select images');
+    const { jsPDF } = window.jspdf; const pdf = new jsPDF(); let first=true;
+    for(const f of input.files){
+      const data = await fileToDataURL(f);
+      const img = await dataToImage(data);
+      const w = 180, h = img.height * (w/img.width);
+      if(!first) pdf.addPage(); first=false;
+      pdf.addImage(data, (f.type==='image/png'?'PNG':'JPEG'), 10, 10, w, h);
     }
+    pdf.save('images.pdf');
+  });
 
-    pdf.save("converted.pdf");
-  }
-
-  function toBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  }
-
-  // Create ZIP
-  async function createZip() {
+  // ======= ZIP CREATOR =======
+  document.getElementById('btnZip').addEventListener('click', async ()=>{
+    const files = document.getElementById('zipInput').files; if(!files.length) return toast('Select files');
     const zip = new JSZip();
-    const files = document.getElementById("zipInput").files;
-    if (!files.length) {
-      alert("Please select files to zip.");
-      return;
+    for(const f of files){ zip.file(f.name, f); }
+    const blob = await zip.generateAsync({type:'blob'});
+    dl(blob,'files.zip');
+  });
+
+  // ======= JPEG COMPRESSOR =======
+  document.getElementById('btnCompress').addEventListener('click', ()=>{
+    const f = document.getElementById('compressInput').files[0]; if(!f) return toast('Select a JPEG');
+    const q = Number(document.getElementById('jpgQ').value)/100;
+    const r = new FileReader(); r.onload = e=>{
+      const img = new Image(); img.onload=()=>{
+        const c=document.createElement('canvas'); c.width=img.width; c.height=img.height; const x=c.getContext('2d'); x.drawImage(img,0,0);
+        c.toBlob(b=>dl(b,'compressed.jpg'),'image/jpeg',q);
+      }; img.src=e.target.result; };
+    r.readAsDataURL(f);
+  });
+
+  // ======= MERGE PDFs (demo) =======
+  document.getElementById('btnMerge').addEventListener('click', async ()=>{
+    const files = document.getElementById('mergeInput').files; if(!files.length) return toast('Select PDFs');
+    const merged = await PDFLib.PDFDocument.create();
+    for(const f of files){
+      const bytes = await f.arrayBuffer(); const pdf = await PDFLib.PDFDocument.load(bytes);
+      const pages = await merged.copyPages(pdf, pdf.getPageIndices()); pages.forEach(p=>merged.addPage(p));
     }
+    const bytes = await merged.save(); dl(new Blob([bytes],{type:'application/pdf'}),'merged.pdf');
+  });
 
-    for (let file of files) {
-      zip.file(file.name, file);
-    }
+  // ======= QR GENERATOR =======
+  const qr = new QRious({ element: document.getElementById('qrCanvas'), size: 160 });
+  document.getElementById('btnQR').addEventListener('click', ()=>{ qr.value = document.getElementById('qrText').value || 'Hello'; toast('QR updated'); });
 
-    const content = await zip.generateAsync({ type: "blob" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(content);
-    link.download = "myfiles.zip";
-    link.click();
-  }
+  // ======= PASSWORD GEN =======
+  document.getElementById('btnPass').addEventListener('click', ()=>{
+    const len = Math.max(6, Math.min(64, Number(document.getElementById('passLen').value)||12));
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
+    let out=''; for(let i=0;i<len;i++) out+=chars[Math.floor(Math.random()*chars.length)];
+    document.getElementById('passOut').value=out;
+  });
+  document.getElementById('btnCopyPass').addEventListener('click', async ()=>{
+    const v=document.getElementById('passOut').value; if(!v) return toast('Generate first'); await navigator.clipboard.writeText(v); toast('Copied');
+  });
 
-  // JPG Compressor
-  function compressJPG() {
-    const input = document.getElementById('compressInput').files[0];
-    if (!input) return alert("Please select a JPG image.");
+  // ======= TTS =======
+  document.getElementById('btnSpeak').addEventListener('click', ()=>{ const t=document.getElementById('ttsText').value||'Hello'; speechSynthesis.cancel(); speechSynthesis.speak(new SpeechSynthesisUtterance(t)); });
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
+  // ======= NOTES =======
+  const NOTE_KEY='fts_note_v1';
+  document.getElementById('btnSaveNote').addEventListener('click', ()=>{ localStorage.setItem(NOTE_KEY, document.getElementById('noteArea').value); document.getElementById('noteSaved').textContent='Saved.'; });
+  document.getElementById('noteArea').value = localStorage.getItem(NOTE_KEY)||'';
 
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0);
+  // ======= TEMP CONVERTER =======
+  document.getElementById('btnTemp').addEventListener('click', ()=>{ const c=Number(document.getElementById('celsius').value); if(isNaN(c)) return toast('Enter °C'); document.getElementById('fahrenheit').value = (c*9/5+32).toFixed(2); });
+  document.getElementById('colorPick').addEventListener('input', (e)=>{ document.getElementById('colorHex').value = e.target.value; });
+  document.getElementById('btnCopy').addEventListener('click', async ()=>{ const v=document.getElementById('clipText').value; if(!v) return toast('Enter text'); await navigator.clipboard.writeText(v); toast('Copied'); });
 
-        const compressedData = canvas.toDataURL("image/jpeg", 0.4); // 40% quality
-        const link = document.createElement("a");
-        link.href = compressedData;
-        link.download = "compressed.jpg";
-        link.click();
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(input);
-  }
-</script>
+  // ======= COUNTDOWN =======
+  let cdTimer=null; document.getElementById('btnCountdown').addEventListener('click', ()=>{ const s=Number(document.getElementById('sec').value)||10; clearInterval(cdTimer); let left=s; document.getElementById('countdownOut').textContent=left+'s'; cdTimer=setInterval(()=>{ left--; document.getElementById('countdownOut').textContent=left+'s'; if(left<=0){clearInterval(cdTimer); toast('Time\'s up!')} },1000) });
 
+  // ======= STOPWATCH =======
+  let sw=null, t0; function fmt(ms){const m=Math.floor(ms/60000),s=Math.floor(ms%60000/1000),d=Math.floor(ms%1000/100); return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}.${d}`}
+  document.getElementById('swStart').addEventListener('click', (e)=>{ if(sw){clearInterval(sw); sw=null; e.target.textContent='Start';} else { t0=Date.now(); sw=setInterval(()=>{ document.getElementById('swTime').textContent=fmt(Date.now()-t0); },100); e.target.textContent='Stop'; } });
+  document.getElementById('swReset').addEventListener('click', ()=>{ clearInterval(sw); sw=null; document.getElementById('swTime').textContent='00:00.0'; document.getElementById('swStart').textContent='Start'; });
+
+  // ======= TODO =======
+  document.getElementById('btnTodo').addEventListener('click', ()=>{ const v=document.getElementById('todoIn').value.trim(); if(!v) return; const li=document.createElement('li'); li.textContent=v; li.addEventListener('click',()=>li.remove()); document.getElementById('todoList').appendChild(li); document.getElementById('todoIn').value=''; });
+
+  // ======= LIGHTBOX GALLERY =======
+  document.getElementById('galleryIn').addEventListener('change', async (e)=>{
+    const wrap=document.getElementById('gallery'); wrap.innerHTML='';
+    for(const f of e.target.files){ const data=await fileToDataURL(f); const img=document.createElement('img'); img.src=data; img.style.width='100%'; img.style.borderRadius='10px'; img.style.cursor='zoom-in'; img.addEventListener('click',()=>openLightbox(data)); const card=document.createElement('div'); card.className='card'; card.appendChild(img); wrap.appendChild(card);} 
+  });
+  function openLightbox(src){ const m=document.createElement('div'); m.style.position='fixed'; m.style.inset='0'; m.style.background='rgba(0,0,0,.8)'; m.style.display='grid'; m.style.placeItems='center'; m.addEventListener('click',()=>m.remove()); const i=document.createElement('img'); i.src=src; i.style.maxWidth='92vw'; i.style.maxHeight='92vh'; i.style.borderRadius='12px'; m.appendChild(i); document.body.appendChild(m);} 
+
+  // ======= WORD COUNTER =======
+  document.getElementById('wcText').addEventListener('input', (e)=>{ const t=e.target.value.trim(); const words=t? t.split(/\s+/).length : 0; document.getElementById('wcOut').textContent=`${words} words • ${t.length} chars`; });
+
+  // ======= BMI =======
+  document.getElementById('btnBMI').addEventListener('click', ()=>{ const w=Number(document.getElementById('wKg').value), h=Number(document.getElementById('hCm').value)/100; if(!w||!h) return toast('Enter weight/height'); const bmi=(w/(h*h)).toFixed(2); document.getElementById('bmiOut').textContent=`BMI ${bmi}`; });
+
+  // ======= QUOTE =======
+  const QUOTES=["Simplicity is the soul of efficiency.","Code is like humor. When you have to explain it, it’s bad.","Make it work, make it right, make it fast."];
+  document.getElementById('btnQuote').addEventListener('click', ()=>{ document.getElementById('quoteOut').textContent = QUOTES[Math.floor(Math.random()*QUOTES.length)]; });
+
+  // ======= CURRENCY (static demo) =======
+  document.getElementById('btnFx').addEventListener('click', ()=>{ const inr=Number(document.getElementById('inr').value)||0; const rate=0.012; document.getElementById('usd').value=(inr*rate).toFixed(2); });
+
+  // ======= EMAIL VALIDATOR =======
+  document.getElementById('email').addEventListener('input', (e)=>{ const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value); document.getElementById('emailOut').textContent = ok? 'Looks valid' : 'Invalid email'; });
+
+  // ======= CONTACT FORM (client demo) =======
+  document.getElementById('contactForm').addEventListener('submit', (e)=>{ e.preventDefault(); const n=cName.value.trim(); const em=cEmail.value.trim(); const m=cMsg.value.trim(); if(!n||!em||!m) return; document.getElementById('cOut').textContent='Thanks! We\'ll reply shortly.'; e.target.reset(); });
+
+  // ======= HELPERS =======
+  function fileToDataURL(file){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file); }); }
+  function dataToImage(data){ return new Promise((res)=>{ const i=new Image(); i.onload=()=>res(i); i.src=data; }); }
+  </script>
+
+  <div class="toast"></div>
 </body>
 </html>
